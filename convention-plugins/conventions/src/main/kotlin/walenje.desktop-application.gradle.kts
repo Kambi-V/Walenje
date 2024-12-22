@@ -5,6 +5,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 val libs = the<LibrariesForLibs>()
 
 plugins {
+    id("walenje.kotlin-multiplatform")
     id("walenje.compose-multiplatform")
 }
 

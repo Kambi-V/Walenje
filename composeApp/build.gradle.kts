@@ -6,10 +6,7 @@ plugins {
     id("walenje.kotlin-multiplatform")
     id("walenje.desktop-application")
     id("walenje.kotlin")
-//    alias(libs.plugins.walenjeAndroidApplication)
-//    alias(libs.plugins.walenjeComposeMultiplatform)
-//    alias(libs.plugins.walenjeKotlinMultiplatform)
-//    alias(libs.plugins.walenjeDesktopApplication)
+    id("walenje.kotlinx")
 }
 
 kotlin {
@@ -20,13 +17,13 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
-        androidMain.dependencies {  }
         commonMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(projects.core.designsystem)
+            // Navigation
+            implementation(libs.navigation.compose)
+            // access features
+            implementation(projects.feature.welcome)
         }
-        desktopMain.dependencies {  }
     }
 }
 

@@ -32,3 +32,9 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+
+include(
+    ":core:authentication",
+    ":core:designsystem"
+)
+include(":feature:welcome")
