@@ -10,6 +10,9 @@ plugins {
 
 kotlin {
     sourceSets {
+        androidMain.dependencies {
+            implementation(compose.preview)
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
