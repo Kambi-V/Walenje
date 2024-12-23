@@ -7,6 +7,7 @@ plugins {
     id("walenje.desktop-application")
     id("walenje.kotlin")
     id("walenje.kotlinx")
+    id("walenje.koin")
 }
 
 kotlin {

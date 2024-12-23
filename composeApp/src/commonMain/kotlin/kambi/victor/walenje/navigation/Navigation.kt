@@ -5,9 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kambi.victor.walenje.InitialScreen
+import kambi.victor.walenje.feature.welcome.SecureWalletScreen
+import kambi.victor.walenje.feature.welcome.SetPinScreen
 import kambi.victor.walenje.feature.welcome.Welcome
 import kotlinx.serialization.Serializable
 
@@ -15,18 +16,32 @@ sealed interface Route {
   @Serializable data object Welcome : Route
 
   @Serializable data object Initial : Route
+
+  @Serializable data object SecureWallet : Route
+
+  @Serializable data object SetPin : Route
 }
-
-@Serializable data object Welcome
-
-@Serializable data object Initial
 
 @Composable
 fun WalenjeNavGraph(navController: NavHostController = rememberNavController()) {
-  val currentBackStackEntry by navController.currentBackStackEntryAsState()
-  //  val currentRoute = currentBackStackEntry?.destination?.route ?: startDestination
-  NavHost(navController = navController, startDestination = Welcome) {
-    composable<Welcome> { Welcome(onNavigateToInitial = { navController.navigate(Initial) }) }
-    composable<Initial> { InitialScreen(onNavigateToWelcome = { navController.navigate(Welcome) }) }
+  NavHost(navController = navController, startDestination = Route.Welcome) {
+    composable<Route.Welcome> {
+      Welcome(onNavigateToSecureWallet = { navController.navigate(Route.SecureWallet) })
+    }
+    composable<Route.Initial> {
+      InitialScreen(onNavigateToWelcome = { navController.popBackStack() })
+    }
+    composable<Route.SecureWallet> {
+      SecureWalletScreen(
+        onNavigateBack = { navController.popBackStack() },
+        onNavigateToSetPin = { navController.navigate(Route.SetPin) },
+      )
+    }
+    composable<Route.SetPin> {
+      SetPinScreen(
+        onNavigateBack = { navController.popBackStack() },
+        onNavigateToHomeScreen = { navController.popBackStack(Route.Welcome, false) },
+      )
+    }
   }
 }

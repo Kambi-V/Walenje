@@ -35,6 +35,8 @@ include(":composeApp")
 
 include(
     ":core:authentication",
-    ":core:designsystem"
+    ":core:designsystem",
+    ":core:ui",
+    ":core:utils"
 )
 include(":feature:welcome")
