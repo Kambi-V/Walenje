@@ -69,8 +69,6 @@ fun SecureWalletScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-        //        ProvideTextStyle(MaterialTheme.typography.bodyLarge.copy(color =
-        // MaterialTheme.colorScheme.onSurface)){
         Button(onClick = { onNavigateToSetPin() }, modifier = Modifier.fillMaxWidth()) {
           Text("Use Pin")
         }
@@ -79,15 +77,22 @@ fun SecureWalletScreen(
           onClick = {
             scope.launch {
               log.i { "Launching biometrics" }
-              val result = biometrics.authenticate()
-              log.i { "Biometrics result: $result" }
-              when (result) {
-                AuthenticationResult.AttemptExhausted -> {}
+              biometrics.authenticate().let { result ->
+                log.i { "Biometrics result: $result" }
 
-                is AuthenticationResult.Error -> {}
-                AuthenticationResult.Failure -> {}
-                AuthenticationResult.Success -> {
-                  onNavigateToNext()
+                when (result) {
+                  AuthenticationResult.AttemptExhausted -> {
+                    log.i { "Attempts exhausted" }
+                  }
+                  is AuthenticationResult.Error -> {
+                    log.i { result.message }
+                  }
+                  AuthenticationResult.Failure -> {
+                    log.i { "In Ui Authentication failed" }
+                  }
+                  AuthenticationResult.Success -> {
+                    onNavigateToNext()
+                  }
                 }
               }
             }
@@ -96,7 +101,6 @@ fun SecureWalletScreen(
         ) {
           Text("Use Biometrics")
         }
-        //        }
       }
     }
   }

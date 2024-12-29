@@ -7,14 +7,15 @@ import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 actual class BiometricPromptManager(private val activity: FragmentActivity) : Biometrics {
   private val executor = ContextCompat.getMainExecutor(activity)
   private lateinit var biometricPrompt: BiometricPrompt
   private lateinit var promptInfo: PromptInfo
 
-  fun showBiometricPrompt(title: String, description: String): PromptInfo {
+  private fun showBiometricPrompt(title: String = "Walenje App", description: String = ""): PromptInfo {
     val authenticators = BIOMETRIC_STRONG
 
     promptInfo =
@@ -28,30 +29,40 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
     return promptInfo
   }
 
-  override suspend fun authenticate(): AuthenticationResult = suspendCoroutine { continuation ->
-    logger.i { "In authentication" }
-    showBiometricPrompt("Walenje App", "")
-    biometricPrompt =
-      BiometricPrompt(
-        activity,
-        executor,
-        object : AuthenticationCallback() {
-          override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-            super.onAuthenticationSucceeded(result)
-            continuation.resume(AuthenticationResult.Success)
-          }
+  private fun createBiometricPrompt(onResult: (AuthenticationResult) -> Unit): BiometricPrompt =
+    BiometricPrompt(
+      activity,
+      executor,
+      object : AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+          super.onAuthenticationSucceeded(result)
+          logger.i { "Authentication succeeded" }
+          onResult(AuthenticationResult.Success)
+        }
 
-          override fun onAuthenticationFailed() {
-            super.onAuthenticationFailed()
-            continuation.resume(AuthenticationResult.Failure)
-          }
+        override fun onAuthenticationFailed() {
+          super.onAuthenticationFailed()
+          logger.i { "Authentication failed" }
+          onResult(AuthenticationResult.Failure)
+        }
 
-          override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-            super.onAuthenticationError(errorCode, errString)
-            continuation.resume(AuthenticationResult.Error(errString.toString()))
-          }
-        },
-      )
-    biometricPrompt.authenticate(showBiometricPrompt("Walenje App", ""))
+        override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+          super.onAuthenticationError(errorCode, errString)
+          logger.i { "Authentication error" }
+          onResult(AuthenticationResult.Error("$errorCode,$errString"))
+        }
+      },
+    )
+
+  override suspend fun authenticate(): AuthenticationResult = coroutineScope {
+    var result: AuthenticationResult
+    do {
+      result = suspendCancellableCoroutine { continuation ->
+        logger.i { "Starting authentication" }
+        biometricPrompt = createBiometricPrompt { authResult -> continuation.resume(authResult) }
+        biometricPrompt.authenticate(showBiometricPrompt())
+      }
+    } while (result == AuthenticationResult.Failure)
+    result
   }
 }
