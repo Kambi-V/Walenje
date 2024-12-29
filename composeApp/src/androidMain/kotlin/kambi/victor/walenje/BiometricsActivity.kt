@@ -1,4 +1,7 @@
 package kambi.victor.walenje
 
-class BiometricsActivity {
+import androidx.fragment.app.FragmentActivity
+
+class BiometricsActivity : FragmentActivity() {
+  //  private val biometrics by lazy { BiometricPromptManager(activity = this) }
 }

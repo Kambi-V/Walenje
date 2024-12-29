@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kambi.victor.walenje.core.authentication.Biometrics
 import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kambi.victor.walenje.navigation.WalenjeNavGraph
 import org.jetbrains.compose.resources.painterResource
@@ -22,9 +23,9 @@ import walenjeapp.composeapp.generated.resources.Res
 import walenjeapp.composeapp.generated.resources.compose_multiplatform
 
 @Composable
-fun App() {
+fun App(biometrics: Biometrics) {
   /* Apply Surface to make the icons visible with edgeToEdge */
-  WalenjeTheme { Surface { WalenjeNavGraph() } }
+  WalenjeTheme { Surface { WalenjeNavGraph(biometrics = biometrics) } }
 }
 
 @Composable
