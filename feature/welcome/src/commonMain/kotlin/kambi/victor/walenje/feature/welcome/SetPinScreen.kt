@@ -70,18 +70,18 @@ fun SetPinScreen(
         SetPinContract.Effect.NavigateToBackScreen -> onNavigateBack()
         SetPinContract.Effect.NavigateToNextScreen -> onNavigateToHomeScreen()
         SetPinContract.Effect.PinConfigured -> {
-          logger.i { "The pin is configured" }
+          log.i { "The pin is configured" }
         }
         SetPinContract.Effect.PinMatched -> onNavigateToHomeScreen()
         SetPinContract.Effect.PinMismatched -> {
-          logger.i { "The pins mismatched" }
+          log.i { "The pins mismatched" }
           scope.launch {
             snackbarHostState.showSnackbar(message = "Try entering a new Pin")
             haptics.medium()
           }
         }
         SetPinContract.Effect.ConfirmPinConfigured -> {
-          logger.i { "The confirm pin is configured" }
+          log.i { "The confirm pin is configured" }
         }
       }
     }
@@ -95,7 +95,7 @@ fun SetPinScreen(
         modifier = Modifier.padding(horizontal = 8.dp),
         navigationIcon = {
           IconButton(
-            onClick = { viewModel.setEvent(SetPinContract.Event.NavigateBack) },
+            onClick = { scope.launch { viewModel.setEvent(SetPinContract.Event.NavigateBack) } },
             modifier = Modifier.clip(CircleShape).size(40.dp),
             colors =
               IconButtonDefaults.iconButtonColors()
@@ -105,7 +105,7 @@ fun SetPinScreen(
           }
         },
       )
-    }
+    },
   ) { paddingValues ->
     Column(
       modifier =
@@ -123,15 +123,15 @@ fun SetPinScreen(
         SetPin(
           title = "Confirm new Pin",
           onSuccess = { pin ->
-            logger.i { "In Screen >>>>>>>>>>>>>>> $pin" }
-            viewModel.setEvent(SetPinContract.Event.SetConfirmPin(pin))
+            log.i { "In Screen >>>>>>>>>>>>>>> $pin" }
+            scope.launch { viewModel.setEvent(SetPinContract.Event.SetConfirmPin(pin)) }
           },
         )
       } else {
         SetPin(
           onSuccess = { pin ->
-            logger.i { "In Screen >>>>>>>>>>>>>>> $pin" }
-            viewModel.setEvent(SetPinContract.Event.SetPin(pin))
+            log.i { "In Screen >>>>>>>>>>>>>>> $pin" }
+            scope.launch { viewModel.setEvent(SetPinContract.Event.SetPin(pin)) }
           }
         )
       }

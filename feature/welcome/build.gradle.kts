@@ -10,6 +10,7 @@ kotlin {
     commonMain.dependencies {
       api(projects.core.ui)
       api(projects.core.utils)
+      api(projects.core.authentication)
     }
   }
 }

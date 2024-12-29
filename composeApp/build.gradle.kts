@@ -8,6 +8,7 @@ plugins {
     id("walenje.kotlin")
     id("walenje.kotlinx")
     id("walenje.koin")
+    id("walenje.logger")
 }
 
 kotlin {
@@ -20,10 +21,13 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.core.designsystem)
+            implementation(projects.core.authentication)
             // Navigation
             implementation(libs.navigation.compose)
             // access features
             implementation(projects.feature.welcome)
+            //Biometrics
+            implementation(libs.biometric)
         }
     }
 }

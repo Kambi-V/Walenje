@@ -13,15 +13,26 @@ import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kambi.victor.walenje.core.authentication.AuthenticationResult
+import kambi.victor.walenje.core.authentication.Biometrics
+import kotlinx.coroutines.launch
 
 @Composable
-fun SecureWalletScreen(onNavigateBack: () -> Unit, onNavigateToSetPin: () -> Unit) {
+fun SecureWalletScreen(
+  onNavigateBack: () -> Unit,
+  onNavigateToSetPin: () -> Unit,
+  configureBiometrics: () -> Unit,
+  onNavigateToNext: () -> Unit,
+  biometrics: Biometrics,
+) {
+  val scope = rememberCoroutineScope()
   Scaffold { paddingValues ->
     Column(
       modifier =
@@ -58,11 +69,34 @@ fun SecureWalletScreen(onNavigateBack: () -> Unit, onNavigateToSetPin: () -> Uni
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-//        ProvideTextStyle(MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurface)){
-          Button(onClick = { onNavigateToSetPin() }, modifier = Modifier.fillMaxWidth()) { Text("Use Pin") }
-          Text("or")
-          Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text("Use Biometrics") }
-//        }
+        //        ProvideTextStyle(MaterialTheme.typography.bodyLarge.copy(color =
+        // MaterialTheme.colorScheme.onSurface)){
+        Button(onClick = { onNavigateToSetPin() }, modifier = Modifier.fillMaxWidth()) {
+          Text("Use Pin")
+        }
+        Text("or")
+        Button(
+          onClick = {
+            scope.launch {
+              log.i { "Launching biometrics" }
+              val result = biometrics.authenticate()
+              log.i { "Biometrics result: $result" }
+              when (result) {
+                AuthenticationResult.AttemptExhausted -> {}
+
+                is AuthenticationResult.Error -> {}
+                AuthenticationResult.Failure -> {}
+                AuthenticationResult.Success -> {
+                  onNavigateToNext()
+                }
+              }
+            }
+          },
+          modifier = Modifier.fillMaxWidth(),
+        ) {
+          Text("Use Biometrics")
+        }
+        //        }
       }
     }
   }
