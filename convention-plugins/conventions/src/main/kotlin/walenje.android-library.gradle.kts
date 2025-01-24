@@ -4,6 +4,7 @@ plugins {
   `android-library`
   `kotlin-composecompiler`
   id("walenje.compose-multiplatform")
+  id("walenje.code-formatter")
 }
 
 kotlin {

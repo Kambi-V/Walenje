@@ -18,7 +18,6 @@ import kambi.victor.walenje.core.authentication.Biometrics
 import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 import kambi.victor.walenje.navigation.WalenjeNavGraph
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import walenjeapp.composeapp.generated.resources.Res
 import walenjeapp.composeapp.generated.resources.compose_multiplatform
 
@@ -29,7 +28,6 @@ fun App(biometrics: Biometrics) {
 }
 
 @Composable
-@Preview
 fun InitialScreen(onNavigateToWelcome: () -> Unit) {
   Scaffold { paddingValues ->
     var showContent by remember { mutableStateOf(false) }

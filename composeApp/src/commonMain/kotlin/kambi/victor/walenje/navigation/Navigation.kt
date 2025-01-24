@@ -5,8 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kambi.victor.walenje.InitialScreen
 import kambi.victor.walenje.core.authentication.Biometrics
+import kambi.victor.walenje.feature.home.HomeScreen
 import kambi.victor.walenje.feature.welcome.SecureWalletScreen
 import kambi.victor.walenje.feature.welcome.SetPinScreen
 import kambi.victor.walenje.feature.welcome.Welcome
@@ -15,11 +15,15 @@ import kotlinx.serialization.Serializable
 sealed interface Route {
   @Serializable data object Welcome : Route
 
-  @Serializable data object Initial : Route
-
   @Serializable data object SecureWallet : Route
 
   @Serializable data object SetPin : Route
+
+  @Serializable data object Home : Route
+
+  @Serializable data object Analytics : Route
+
+  @Serializable data object Profile : Route
 }
 
 @Composable
@@ -27,12 +31,9 @@ fun WalenjeNavGraph(
   navController: NavHostController = rememberNavController(),
   biometrics: Biometrics,
 ) {
-  NavHost(navController = navController, startDestination = Route.Welcome) {
+  NavHost(navController = navController, startDestination = Route.Home) {
     composable<Route.Welcome> {
       Welcome(onNavigateToSecureWallet = { navController.navigate(Route.SecureWallet) })
-    }
-    composable<Route.Initial> {
-      InitialScreen(onNavigateToWelcome = { navController.navigateUp() })
     }
     composable<Route.SecureWallet> {
       SecureWalletScreen(
@@ -40,14 +41,23 @@ fun WalenjeNavGraph(
         onNavigateToSetPin = { navController.navigate(Route.SetPin) },
         configureBiometrics = {},
         biometrics = biometrics,
-        onNavigateToNext = { navController.popBackStack(Route.Welcome, false) },
+        onNavigateToNext = {
+          navController.popBackStack(Route.Welcome, true)
+          navController.navigate(Route.Home)
+        },
       )
     }
     composable<Route.SetPin> {
       SetPinScreen(
         onNavigateBack = { navController.navigateUp() },
-        onNavigateToHomeScreen = { navController.popBackStack(Route.Welcome, false) },
+        onNavigateToHomeScreen = {
+          navController.popBackStack(Route.Welcome, true)
+          navController.navigate(Route.Home)
+        },
       )
     }
+    composable<Route.Home> { HomeScreen(onNavigateBack = { navController.navigateUp() }) }
+    composable<Route.Analytics> {}
+    composable<Route.Profile> {}
   }
 }

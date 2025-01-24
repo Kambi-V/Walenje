@@ -8,11 +8,8 @@ import kambi.victor.walenje.core.utils.mvi.UiState
 interface SetPinContract {
   sealed interface Event : UiEvent {
     data class SetPin(val pin: String) : Event
-
     data class SetConfirmPin(val pin: String) : Event
-
     data object NavigateBack : Event
-
     data object NavigateNext : Event
   }
 
@@ -25,13 +22,9 @@ interface SetPinContract {
   sealed interface Effect : UiEffect {
     data object PinConfigured : Effect
     data object ConfirmPinConfigured : Effect
-
     data object PinMatched : Effect
-
     data object PinMismatched : Effect
-
     data object NavigateToNextScreen : Effect
-
     object NavigateToBackScreen : Effect
   }
 }

@@ -15,7 +15,10 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
   private lateinit var biometricPrompt: BiometricPrompt
   private lateinit var promptInfo: PromptInfo
 
-  private fun showBiometricPrompt(title: String = "Walenje App", description: String = ""): PromptInfo {
+  private fun buildBiometricPrompt(
+    title: String = "Walenje App",
+    description: String = "",
+  ): PromptInfo {
     val authenticators = BIOMETRIC_STRONG
 
     promptInfo =
@@ -25,12 +28,11 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
         .setNegativeButtonText("Cancel")
         .setAllowedAuthenticators(authenticators)
         .build()
-    logger.i { "Prompt is built" }
     return promptInfo
   }
 
-  private fun createBiometricPrompt(onResult: (AuthenticationResult) -> Unit): BiometricPrompt =
-    BiometricPrompt(
+  private fun createBiometricPrompt(onResult: (AuthenticationResult) -> Unit): BiometricPrompt {
+    return BiometricPrompt(
       activity,
       executor,
       object : AuthenticationCallback() {
@@ -53,6 +55,7 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
         }
       },
     )
+  }
 
   override suspend fun authenticate(): AuthenticationResult = coroutineScope {
     var result: AuthenticationResult
@@ -60,7 +63,7 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
       result = suspendCancellableCoroutine { continuation ->
         logger.i { "Starting authentication" }
         biometricPrompt = createBiometricPrompt { authResult -> continuation.resume(authResult) }
-        biometricPrompt.authenticate(showBiometricPrompt())
+        biometricPrompt.authenticate(buildBiometricPrompt())
       }
     } while (result == AuthenticationResult.Failure)
     result
