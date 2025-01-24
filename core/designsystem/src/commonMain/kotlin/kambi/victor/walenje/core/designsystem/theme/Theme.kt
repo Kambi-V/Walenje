@@ -250,8 +250,6 @@ data class ColorFamily(
 )
 
 @Composable
-fun WalenjeTheme(
-  content: @Composable () -> Unit,
-) {
+fun WalenjeTheme(content: @Composable () -> Unit) {
   MaterialTheme(colorScheme = lightScheme, typography = getSceptreTypography(), content = content)
 }

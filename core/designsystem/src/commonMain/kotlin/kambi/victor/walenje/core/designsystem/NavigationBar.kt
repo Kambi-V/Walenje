@@ -16,20 +16,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 
 data class NavItem(val name: String, val icon: ImageVector)
 
 @Immutable
-data class NavigationItem(val label: String, val icon: ImageVector,val selectedIcon: ImageVector, val iconLabel: ImageVector)
+data class NavigationItem(
+  val label: String,
+  val icon: ImageVector,
+  val selectedIcon: ImageVector,
+  val iconLabel: ImageVector,
+)
 
 @Composable
-fun WalenjeNavigationBarUpdated(items: List<NavigationItem>, onItemSelected: ()-> Unit){
-  NavigationBar{
-    items.forEach { item ->
-
-    }
-  }
+fun WalenjeNavigationBarUpdated(items: List<NavigationItem>, onItemSelected: () -> Unit) {
+  NavigationBar { items.forEach { item -> } }
 }
 
 @Composable

@@ -5,8 +5,8 @@ import kambi.victor.walenje.core.designsystem.theme.WalenjeTheme
 
 @androidx.compose.ui.tooling.preview.Preview
 @Composable
-fun WalenjeNavPreview(){
-    WalenjeTheme {
-//        WalenjeNavigationBar(navMappedItems, 1)
-    }
+fun WalenjeNavPreview() {
+  WalenjeTheme {
+    //        WalenjeNavigationBar(navMappedItems, 1)
+  }
 }
