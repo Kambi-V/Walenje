@@ -2,7 +2,6 @@ plugins {
   id("walenje.feature")
   id("walenje.koin")
   id("walenje.logger")
-  //  id("walenje.desktop-application")
 }
 
 kotlin {

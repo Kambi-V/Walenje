@@ -1,28 +1,29 @@
 [versions]
-agp = "8.8.0"
+agp = "8.9.2"
+androidx-activityCompose = "1.10.1"
 android-compileSdk = "35"
+androidx-lifecycle = "2.8.4"
 android-minSdk = "24"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.3"
-androidx-lifecycle = "2.8.4"
-compose-multiplatform = "1.7.3"
+biometric="1.4.0-alpha03"
+compose-multiplatform = "1.8.0-rc01"
 java = "21"
-kotlin = "2.1.0"
-kotlinx-coroutines = "1.10.1"
-kotlinx-serialization = "1.8.0-RC"
-ktfmt = "0.21.0"
+kotlin = "2.1.20"
+kotlinx-coroutines = "1.10.2"
+kotlinx-serialization = "1.8.0"
+ktfmt = "0.22.0"
 navigation-compose = "2.8.0-alpha11"
-koin = "4.0.1-Beta1"
+koin = "4.0.2"
 kotlin-logging ="1.5.0"
-biometric="1.1.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
+
+kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }

@@ -1,12 +1,12 @@
-plugins {
-  id("com.ncorti.ktfmt.gradle")
-}
+plugins { id("com.ncorti.ktfmt.gradle") }
 
 ktfmt {
   googleStyle()
   removeUnusedImports = true
   maxWidth = 100
-  manageTrailingCommas = true
 }
 
-tasks.named("preBuild").configure { dependsOn("ktfmtFormat") }
+tasks.named("preBuild").configure {
+  dependsOn("ktfmtFormatScripts")
+  dependsOn("ktfmtFormat")
+}

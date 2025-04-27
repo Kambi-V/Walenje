@@ -12,7 +12,7 @@ internal fun Project.configureAndroidLibrary() {
   extensions.configure<LibraryExtension> {
     val moduleName = path.split(":").drop(2).joinToString(".")
     namespace =
-      if (moduleName.isNotEmpty()) "kambi.victor.walenje.$moduleName" else "io.tajji.sceptre.kit"
+      if (moduleName.isNotEmpty()) "kambi.victor.walenje.$moduleName" else "kambi.victor.walenje"
 
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
@@ -25,15 +25,5 @@ internal fun Project.configureAndroidLibrary() {
     }
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
     apply { sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml") }
-//    namespace = group.toString() + path.replace("-", "").split(":").joinToString(".")
-//    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-//    defaultConfig {
-//      minSdk = libs.versions.android.minSdk.get().toInt()
-//    }
-//    compileOptions {
-//      sourceCompatibility = JavaVersion.VERSION_21
-//      targetCompatibility = JavaVersion.VERSION_21
-//    }
   }
 }

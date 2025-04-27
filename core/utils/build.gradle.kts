@@ -4,5 +4,3 @@ plugins {
 }
 
 android { namespace = "kambi.victor.walenje.core.utils" }
-
-//kotlin { sourceSets { commonMain.dependencies { api(projects.core.designsystem) } } }
