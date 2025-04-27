@@ -5,7 +5,7 @@ Walenje is a kotlin multiplatform project, built with Compose multiplatform, Cor
 <br>
 Walenje is Swahili/Sheng' for *wallet*
 
-![walenje]()
+![walenje](images/icon.svg)
 
 ## Open-source libraries
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
