@@ -6,7 +6,7 @@ xcuserdata
 !src/**/build/
 local.properties
 !.idea/ktfmt.xml
-!.idea/logo.svg
+!.idea/icon.svg
 .idea
 .DS_Store
 captures
