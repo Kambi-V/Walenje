@@ -21,6 +21,7 @@ Walenje is Swahili/Sheng' for *wallet*
 
 ## Screenshots
 ### Android
+![Screenshot showing user journey](images/journey.png "Screenshot showing user journey")
 
 ### IOS
 
