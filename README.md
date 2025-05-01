@@ -29,12 +29,15 @@ Walenje is Swahili/Sheng' for *wallet*
 
 ## Original design
 
-Adapted from [Walenje App design]() by [Some Designer]().
+Designed by
+Kambi
+
+[//]: # (Adapted from [Walenje App design]&#40;&#41; by [Kambi]&#40;&#41;.)
 
 
 # License
 ```xml
-Copyright 2023 M0Coding (Mohamed Ben Rejeb)
+Copyright 2024 Kambi Victor
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

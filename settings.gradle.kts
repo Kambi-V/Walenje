@@ -1,4 +1,4 @@
-rootProject.name = "WalenjeApp"
+rootProject.name = "Walenje"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
