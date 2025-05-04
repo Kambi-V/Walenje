@@ -35,4 +35,4 @@ include(":composeApp")
 
 include(":core:authentication", ":core:designsystem", ":core:ui", ":core:utils")
 
-include(":feature:welcome", ":feature:home", ":feature:analytics", ":feature:profile")
+include(":feature:onboarding", ":feature:home", ":feature:analytics", ":feature:profile")

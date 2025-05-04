@@ -13,10 +13,6 @@ dependencies {
   compileOnly(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 
-kotlin {
-  jvmToolchain(libs.versions.java.get().toInt())
-}
-
 java {
   sourceCompatibility = JavaVersion.VERSION_21
   targetCompatibility = JavaVersion.VERSION_21

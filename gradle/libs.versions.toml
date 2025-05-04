@@ -5,23 +5,25 @@ android-compileSdk = "35"
 androidx-lifecycle = "2.8.4"
 android-minSdk = "24"
 android-targetSdk = "34"
-biometric="1.4.0-alpha03"
+biometric = "1.4.0-alpha03"
+compose-adaptive = "1.1.0-rc01"
+compose-lifecycle = "2.9.0-alpha07"
 compose-multiplatform = "1.8.0-rc01"
-java = "21"
+compose-navigation = "2.7.0-alpha17"
 kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.0"
 ktfmt = "0.22.0"
-navigation-compose = "2.8.0-alpha11"
-koin = "4.0.2"
-kotlin-logging ="1.5.0"
+koin = "4.1.0-Beta8"
+kotlin-logging = "1.5.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
-
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "compose-adaptive" }
+compose-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime", version.ref = "compose-lifecycle" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
@@ -32,9 +34,9 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
 koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
-kotlin-logging = { module ="org.lighthousegames:logging", version.ref="kotlin-logging"}
+kotlin-logging = { module = "org.lighthousegames:logging", version.ref = "kotlin-logging" }
 
-biometric = { module = "androidx.biometric:biometric", version.ref ="biometric"}
+biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 
 [bundles]
 koin = ["koin-core", "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]

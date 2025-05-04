@@ -29,7 +29,7 @@ import androidx.compose.ui.semantics.Role
 fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
   var isFocused by remember { mutableStateOf(false) }
   var hasKeyboardAppearedSinceLastFocus by remember { mutableStateOf(false) }
-  //    val imeIsVisible = WindowInsets.isImeVisible
+  //      val imeIsVisible = WindowInsets.isImeVisible
   val imeIsVisible = isKeyboardVisible()
   val focusManager = LocalFocusManager.current
 

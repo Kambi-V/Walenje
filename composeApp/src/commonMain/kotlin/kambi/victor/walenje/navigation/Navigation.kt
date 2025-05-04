@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kambi.victor.walenje.core.authentication.Biometrics
 import kambi.victor.walenje.feature.home.HomeScreen
-import kambi.victor.walenje.feature.welcome.SecureWalletScreen
+import kambi.victor.walenje.feature.welcome.SecureYourWalletScreen
 import kambi.victor.walenje.feature.welcome.SetPinScreen
 import kambi.victor.walenje.feature.welcome.Welcome
 import kotlinx.serialization.Serializable
@@ -30,21 +30,16 @@ sealed interface Route {
 fun WalenjeNavGraph(
   navController: NavHostController = rememberNavController(),
   biometrics: Biometrics,
+  startDestination: Route = Route.Welcome,
 ) {
-  NavHost(navController = navController, startDestination = Route.Home) {
+  NavHost(navController = navController, startDestination = startDestination) {
     composable<Route.Welcome> {
       Welcome(onNavigateToSecureWallet = { navController.navigate(Route.SecureWallet) })
     }
     composable<Route.SecureWallet> {
-      SecureWalletScreen(
+      SecureYourWalletScreen(
         onNavigateBack = { navController.navigateUp() },
-        onNavigateToSetPin = { navController.navigate(Route.SetPin) },
-        configureBiometrics = {},
-        biometrics = biometrics,
-        onNavigateToNext = {
-          navController.popBackStack(Route.Welcome, true)
-          navController.navigate(Route.Home)
-        },
+        onNavigateToNext = { navController.navigate(Route.SetPin) },
       )
     }
     composable<Route.SetPin> {

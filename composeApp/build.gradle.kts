@@ -18,9 +18,9 @@ kotlin {
       implementation(projects.core.designsystem)
       implementation(projects.core.authentication)
       // Navigation
-      implementation(libs.navigation.compose)
+      implementation(libs.compose.navigation)
       // access features
-      implementation(projects.feature.welcome)
+      implementation(projects.feature.onboarding)
       implementation(projects.feature.home)
       implementation(projects.feature.analytics)
       implementation(projects.feature.profile)

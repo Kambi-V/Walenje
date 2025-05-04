@@ -27,6 +27,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kambi.victor.walenje.core.designsystem.TextType
+import kambi.victor.walenje.core.designsystem.WalenjeTextStyle
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 import kambi.victor.walenje.core.designsystem.medium
 import org.jetbrains.compose.resources.vectorResource
@@ -59,7 +61,7 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
           ProvideTextStyle(
-            MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+            WalenjeTextStyle(TextType.TextMedium).copy(fontWeight = FontWeight.Medium)
           ) {
             Text(
               text =
