@@ -1,15 +1,16 @@
 [versions]
-agp = "8.9.2"
+agp = "8.10.0"
 androidx-activityCompose = "1.10.1"
 android-compileSdk = "35"
 androidx-lifecycle = "2.8.4"
 android-minSdk = "24"
-android-targetSdk = "34"
+android-targetSdk = "35"
 biometric = "1.4.0-alpha03"
 compose-adaptive = "1.1.0-rc01"
-compose-lifecycle = "2.9.0-alpha07"
-compose-multiplatform = "1.8.0-rc01"
-compose-navigation = "2.7.0-alpha17"
+compose-hot-reload = "1.0.0-alpha09"
+compose-lifecycle = "2.9.0-beta01"
+compose-multiplatform = "1.8.0"
+compose-navigation = "2.9.0-beta01"
 kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.0"
@@ -19,11 +20,13 @@ kotlin-logging = "1.5.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
-compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+
 compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "compose-adaptive" }
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 compose-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime", version.ref = "compose-lifecycle" }
+
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
@@ -44,6 +47,7 @@ koin = ["koin-core", "koin-compose", "koin-compose-viewmodel", "koin-compose-vie
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload"}
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

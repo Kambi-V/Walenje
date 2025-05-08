@@ -8,6 +8,7 @@ plugins {
   id("walenje.kotlinx")
   id("walenje.koin")
   id("walenje.logger")
+  alias(libs.plugins.composeHotReload)
 }
 
 kotlin {
