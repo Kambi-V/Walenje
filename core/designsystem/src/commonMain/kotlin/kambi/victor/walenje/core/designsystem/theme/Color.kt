@@ -3,7 +3,7 @@ package kambi.victor.walenje.core.designsystem.theme
 import androidx.compose.ui.graphics.Color
 
 val primaryLight = Color(0xFF1CFDD6)
-val onPrimaryLight = Color(0xFFFFFFFF)
+val onPrimaryLight = Color(0xFF171D1B)
 val primaryContainerLight = Color(0xFFA1F2DC)
 val onPrimaryContainerLight = Color(0xFF00201A)
 val secondaryLight = Color(0xFF0B6B59)
