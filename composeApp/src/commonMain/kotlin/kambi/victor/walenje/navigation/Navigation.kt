@@ -1,5 +1,6 @@
 package kambi.victor.walenje.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -30,7 +31,7 @@ sealed interface Route {
 fun WalenjeNavGraph(
   navController: NavHostController = rememberNavController(),
   biometrics: Biometrics,
-  startDestination: Route = Route.Welcome,
+  startDestination: Route = Route.SecureWallet,
 ) {
   NavHost(navController = navController, startDestination = startDestination) {
     composable<Route.Welcome> {
@@ -42,7 +43,9 @@ fun WalenjeNavGraph(
         onNavigateToNext = { navController.navigate(Route.SetPin) },
       )
     }
-    composable<Route.SetPin> {
+    composable<Route.SetPin>(
+      enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up) }
+    ) {
       SetPinScreen(
         onNavigateBack = { navController.navigateUp() },
         onNavigateToHomeScreen = {
