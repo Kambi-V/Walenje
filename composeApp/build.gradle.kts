@@ -1,3 +1,4 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -15,6 +16,7 @@ kotlin {
   androidTarget { compilerOptions { jvmTarget.set(JvmTarget.JVM_21) } }
 
   sourceSets {
+    androidMain.dependencies { implementation(libs.biometric) }
     commonMain.dependencies {
       implementation(projects.core.designsystem)
       implementation(projects.core.authentication)
@@ -26,7 +28,6 @@ kotlin {
       implementation(projects.feature.analytics)
       implementation(projects.feature.profile)
       // Biometrics
-      implementation(libs.biometric)
     }
   }
 }
@@ -48,6 +49,7 @@ compose.desktop {
     nativeDistributions {
       packageName = "kambi.victor.walenje"
       packageVersion = "1.0.0"
+      targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
     }
   }
 }
