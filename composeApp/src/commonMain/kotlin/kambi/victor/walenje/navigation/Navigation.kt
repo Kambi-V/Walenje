@@ -39,7 +39,6 @@ fun WalenjeNavGraph(
     }
     composable<Route.SecureWallet> {
       SecureYourWalletScreen(
-        onNavigateBack = { navController.navigateUp() },
         onNavigateToNext = { navController.navigate(Route.SetPin) },
       )
     }

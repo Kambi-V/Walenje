@@ -20,14 +20,15 @@ kotlin {
     commonMain.dependencies {
       implementation(projects.core.designsystem)
       implementation(projects.core.authentication)
+
       // Navigation
       implementation(libs.compose.navigation)
-      // access features
+
+      // Features
       implementation(projects.feature.onboarding)
       implementation(projects.feature.home)
       implementation(projects.feature.analytics)
       implementation(projects.feature.profile)
-      // Biometrics
     }
   }
 }

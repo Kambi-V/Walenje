@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.vectorResource
 
 @Composable
-fun SecureYourWalletScreen(onNavigateBack: () -> Unit, onNavigateToNext: () -> Unit) {
+fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
   val coroutineScope = rememberCoroutineScope()
 
   val translationY = remember { Animatable(0f) }
