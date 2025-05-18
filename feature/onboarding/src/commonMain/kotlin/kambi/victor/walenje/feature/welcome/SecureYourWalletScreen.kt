@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,7 +44,6 @@ import kambi.victor.walenje.core.designsystem.WalenjeText
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 import kotlin.math.abs
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
@@ -123,13 +123,13 @@ fun SecureYourWalletScreen(onNavigateToNext: () -> Unit) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-
-        //        SwipeUpChevronAnimation()
         Button(
           onClick = { onNavigateToNext() },
           modifier = Modifier.fillMaxWidth(),
           shape = MaterialTheme.shapes.medium,
         ) {
+          Icon(WalenjeIcons.Lock, contentDescription = null)
+          Spacer(Modifier.padding(4.dp))
           WalenjeText("Proceed to secure Wallet", fontWeight = FontWeight.Bold)
         }
       }
@@ -262,6 +262,6 @@ fun SwipeUpChevronAnimation() {
       this.alpha = alpha.value
     }
   ) {
-    Icon(imageVector = vectorResource(WalenjeIcons.ChevronUp), contentDescription = null)
+    Icon(imageVector = WalenjeIcons.ChevronUp, contentDescription = null)
   }
 }

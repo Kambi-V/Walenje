@@ -19,7 +19,7 @@ interface SetPinContract {
   data class State(
     val pin: ResourceUiState<String>,
     val confirmPin: ResourceUiState<String>,
-    val isPinMatching: ResourceUiState<Boolean>,
+    val validPin: ResourceUiState<Boolean>,
   ) : UiState
 
   sealed interface Effect : UiEffect {

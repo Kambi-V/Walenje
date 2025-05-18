@@ -31,16 +31,14 @@ sealed interface Route {
 fun WalenjeNavGraph(
   navController: NavHostController = rememberNavController(),
   biometrics: Biometrics,
-  startDestination: Route = Route.SecureWallet,
+  startDestination: Route = Route.SetPin,
 ) {
   NavHost(navController = navController, startDestination = startDestination) {
     composable<Route.Welcome> {
       Welcome(onNavigateToSecureWallet = { navController.navigate(Route.SecureWallet) })
     }
     composable<Route.SecureWallet> {
-      SecureYourWalletScreen(
-        onNavigateToNext = { navController.navigate(Route.SetPin) },
-      )
+      SecureYourWalletScreen(onNavigateToNext = { navController.navigate(Route.SetPin) })
     }
     composable<Route.SetPin>(
       enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Up) }

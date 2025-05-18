@@ -29,9 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kambi.victor.walenje.core.designsystem.TextType
 import kambi.victor.walenje.core.designsystem.WalenjeTextStyle
+import kambi.victor.walenje.core.designsystem.confirm
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
-import kambi.victor.walenje.core.designsystem.medium
-import org.jetbrains.compose.resources.vectorResource
 
 @Composable
 fun Welcome(onNavigateToSecureWallet: () -> Unit) {
@@ -85,17 +84,14 @@ fun Welcome(onNavigateToSecureWallet: () -> Unit) {
           modifier =
             Modifier.clip(CircleShape)
               .clickable {
-                haptic.medium()
+                haptic.confirm()
                 onNavigateToSecureWallet()
               }
               .background(MaterialTheme.colorScheme.primary)
               .size(70.dp),
           contentAlignment = Alignment.Center,
         ) {
-          Icon(
-            imageVector = vectorResource(WalenjeIcons.ArrowChevronRight),
-            contentDescription = null,
-          )
+          Icon(imageVector = WalenjeIcons.ArrowChevronRight, contentDescription = null)
         }
       }
     }

@@ -11,7 +11,7 @@ class SetPinScreenViewModel :
     return SetPinContract.State(
       pin = ResourceUiState.Idle,
       confirmPin = ResourceUiState.Idle,
-      isPinMatching = ResourceUiState.Idle,
+      validPin = ResourceUiState.Idle,
     )
   }
 
@@ -51,7 +51,7 @@ class SetPinScreenViewModel :
 
     when {
       isPinMatching -> {
-        setState { copy(isPinMatching = ResourceUiState.Success(true)) }
+        setState { copy(validPin = ResourceUiState.Success(true)) }
         setEffect { SetPinContract.Effect.PinMatched }
       }
       else -> {
@@ -59,7 +59,7 @@ class SetPinScreenViewModel :
           copy(
             pin = ResourceUiState.Idle,
             confirmPin = ResourceUiState.Idle,
-            isPinMatching = ResourceUiState.Error(),
+            validPin = ResourceUiState.Error(),
           )
         }
         setEffect { SetPinContract.Effect.PinMismatched }
