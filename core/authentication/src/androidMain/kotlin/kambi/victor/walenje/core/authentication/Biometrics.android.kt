@@ -38,19 +38,19 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
       object : AuthenticationCallback() {
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
           super.onAuthenticationSucceeded(result)
-          logger.i { "Authentication succeeded" }
+//          logger.i { "Authentication succeeded" }
           onResult(AuthenticationResult.Success)
         }
 
         override fun onAuthenticationFailed() {
           super.onAuthenticationFailed()
-          logger.i { "Authentication failed" }
+//          logger.i { "Authentication failed" }
           onResult(AuthenticationResult.Failure)
         }
 
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
           super.onAuthenticationError(errorCode, errString)
-          logger.i { "Authentication error" }
+//          logger.i { "Authentication error" }
           onResult(AuthenticationResult.Error("$errorCode,$errString"))
         }
       },
@@ -61,7 +61,7 @@ actual class BiometricPromptManager(private val activity: FragmentActivity) : Bi
     var result: AuthenticationResult
     do {
       result = suspendCancellableCoroutine { continuation ->
-        logger.i { "Starting authentication" }
+//        logger.i { "Starting authentication" }
         biometricPrompt = createBiometricPrompt { authResult -> continuation.resume(authResult) }
         biometricPrompt.authenticate(buildBiometricPrompt())
       }

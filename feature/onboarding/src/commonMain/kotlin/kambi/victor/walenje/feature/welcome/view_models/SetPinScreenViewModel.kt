@@ -3,7 +3,6 @@ package kambi.victor.walenje.feature.welcome.view_models
 import kambi.victor.walenje.core.utils.mvi.BaseViewModel
 import kambi.victor.walenje.core.utils.mvi.ResourceUiState
 import kambi.victor.walenje.feature.welcome.SetPinContract
-import kambi.victor.walenje.feature.welcome.log
 
 class SetPinScreenViewModel :
   BaseViewModel<SetPinContract.Event, SetPinContract.State, SetPinContract.Effect>() {
@@ -34,20 +33,20 @@ class SetPinScreenViewModel :
   }
 
   private fun setPin(pin: String) {
-    log.i { "In view model:: $pin" }
+    //    log.i { "In view model:: $pin" }
     setState { copy(pin = ResourceUiState.Success(pin)) }
     setEffect { SetPinContract.Effect.PinConfigured }
   }
 
   private fun setConfirmPin(pin: String) {
-    log.i { "In view model:: $pin" }
+    //    log.i { "In view model:: $pin" }
     setState { copy(confirmPin = ResourceUiState.Success(pin)) }
     setEffect { SetPinContract.Effect.ConfirmPinConfigured }
   }
 
   private fun confirmPin() {
     val isPinMatching = state.value.pin == state.value.confirmPin
-    log.i { "Pin matching is :: $isPinMatching" }
+    //    log.i { "Pin matching is :: $isPinMatching" }
 
     when {
       isPinMatching -> {

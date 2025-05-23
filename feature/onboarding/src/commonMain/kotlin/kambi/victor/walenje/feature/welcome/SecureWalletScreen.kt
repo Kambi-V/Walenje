@@ -76,19 +76,18 @@ fun SecureWalletScreen(
         Button(
           onClick = {
             scope.launch {
-              log.i { "Launching biometrics" }
               biometrics.authenticate().let { result ->
-                log.i { "Biometrics result: $result" }
+                //                log.i { "Biometrics result: $result" }
 
                 when (result) {
                   AuthenticationResult.AttemptExhausted -> {
-                    log.i { "Attempts exhausted" }
+                    //                    log.i { "Attempts exhausted" }
                   }
                   is AuthenticationResult.Error -> {
-                    log.i { result.message }
+                    //                    log.i { result.message }
                   }
                   AuthenticationResult.Failure -> {
-                    log.i { "In Ui Authentication failed" }
+                    //                    log.i { "In Ui Authentication failed" }
                   }
                   AuthenticationResult.Success -> {
                     onNavigateToNext()

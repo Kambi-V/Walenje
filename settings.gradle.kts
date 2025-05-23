@@ -2,6 +2,8 @@ rootProject.name = "Walenje"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+
+
 pluginManagement {
   includeBuild("convention-plugins")
 
@@ -29,6 +31,10 @@ dependencyResolutionManagement {
     }
     mavenCentral()
   }
+}
+
+plugins {
+  id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 include(":composeApp")

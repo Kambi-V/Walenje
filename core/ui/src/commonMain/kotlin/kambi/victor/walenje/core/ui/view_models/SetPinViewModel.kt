@@ -10,7 +10,6 @@ class SetPinViewModel : ViewModel() {
   val pin = _pin.asStateFlow()
 
   fun onPinChange(entry: String) {
-    logger.error { "In Set pin View model >>>>>>>>>>>>>>> $entry" }
     if (entry.length <= 6) _pin.value = entry
   }
 }

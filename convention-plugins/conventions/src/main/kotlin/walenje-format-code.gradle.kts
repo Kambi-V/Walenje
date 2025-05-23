@@ -6,7 +6,7 @@ ktfmt {
   maxWidth = 100
 }
 
-tasks.named("preBuild").configure {
+tasks.named("build").configure {
   dependsOn("ktfmtFormatScripts")
   dependsOn("ktfmtFormat")
 }

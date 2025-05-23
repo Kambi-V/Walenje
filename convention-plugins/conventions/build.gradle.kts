@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
   implementation(libs.plugins.kotlinMultiplatform.toDep())
+  implementation(libs.plugins.androidKmpLibrary.toDep())
   implementation(libs.plugins.androidApplication.toDep())
-  implementation(libs.plugins.androidLibrary.toDep())
   implementation(libs.plugins.composeCompiler.toDep())
   implementation(libs.plugins.composeMultiplatform.toDep())
   implementation(libs.plugins.ktfmt.toDep())

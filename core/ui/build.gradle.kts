@@ -1,9 +1,14 @@
 plugins {
-  id("walenje.android-library")
-  id("walenje.koin")
-  id("walenje.logger")
+  id("walenje-kmp-library")
+  id("walenje-koin")
+  id("walenje-logger")
 }
 
-android { namespace = "kambi.victor.walenje.core.ui" }
+kotlin {
+  androidLibrary { namespace = "kambi.victor.walenje.core.ui"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    minSdk = libs.versions.android.minSdk.get().toInt()
+  }
 
-kotlin { sourceSets { commonMain.dependencies { api(projects.core.designsystem) } } }
+  sourceSets { commonMain.dependencies { api(projects.core.designsystem) } }
+}

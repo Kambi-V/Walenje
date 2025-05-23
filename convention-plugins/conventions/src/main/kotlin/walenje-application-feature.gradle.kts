@@ -1,17 +1,14 @@
 import org.gradle.accessors.dm.LibrariesForLibs
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-  id("walenje.android-library")
-  id("walenje.compose-multiplatform")
-  id("walenje.desktop-application")
+  id("walenje-kmp-library")
+  id("walenje-cmp-base")
+  id("walenje-kotlinx")
 }
 
 val libs = the<LibrariesForLibs>()
 
 kotlin {
-  androidTarget { compilerOptions { jvmTarget.set(JvmTarget.JVM_21) } }
-
   sourceSets {
     commonMain.dependencies {
       implementation(project(":core:designsystem"))

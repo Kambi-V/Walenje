@@ -51,7 +51,11 @@ fun WalenjeNavGraph(
         },
       )
     }
-    composable<Route.Home> { HomeScreen(onNavigateBack = { navController.navigateUp() }) }
+    composable<Route.Home>(
+      enterTransition = { slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Left) }
+    ) {
+      HomeScreen(onNavigateBack = { navController.navigateUp() })
+    }
     composable<Route.Analytics> {}
     composable<Route.Profile> {}
   }

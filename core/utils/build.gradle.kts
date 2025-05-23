@@ -1,6 +1,13 @@
 plugins {
-  id("walenje.android-library")
-  id("walenje.logger")
+  id("walenje-kmp-library")
+  id("walenje-kotlinx")
+  id("walenje-logger")
 }
 
-android { namespace = "kambi.victor.walenje.core.utils" }
+kotlin {
+  androidLibrary {
+    namespace = "kambi.victor.walenje.core.utils"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    minSdk = libs.versions.android.minSdk.get().toInt()
+  }
+}

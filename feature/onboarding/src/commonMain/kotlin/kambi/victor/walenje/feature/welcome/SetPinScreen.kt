@@ -1,9 +1,12 @@
 package kambi.victor.walenje.feature.welcome
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
@@ -29,6 +32,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +41,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -50,9 +56,6 @@ import kambi.victor.walenje.core.designsystem.confirm
 import kambi.victor.walenje.core.designsystem.icons.WalenjeIcons
 import kambi.victor.walenje.core.designsystem.reject
 import kambi.victor.walenje.core.ui.NumberPad
-import kambi.victor.walenje.feature.welcome.PinState.Indeterminate
-import kambi.victor.walenje.feature.welcome.PinState.Input
-import kambi.victor.walenje.feature.welcome.PinState.Success
 import kambi.victor.walenje.feature.welcome.view_models.SetPinScreenViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -67,15 +70,17 @@ fun SetPinScreen(
 ) {
   var pin by remember { mutableStateOf("") }
   var confirmPin by remember { mutableStateOf("") }
+
   var isConfirmPin by remember { mutableStateOf(false) }
   val snackbarHostState = remember { SnackbarHostState() }
   val scope = rememberCoroutineScope()
   val haptics = LocalHapticFeedback.current
+  var isPinMismatch by remember { mutableStateOf(false) }
 
   LaunchedEffect(pin, confirmPin) {
     if (pin.length == 4) {
       viewModel.setEvent(SetPinContract.Event.SetPin(pin))
-      delay(500) // this is to show the animation
+      delay(300) // this is to show the animation
       isConfirmPin = true
     }
     if (confirmPin.length == 4) {
@@ -91,23 +96,24 @@ fun SetPinScreen(
           onNavigateToHomeScreen()
         }
         SetPinContract.Effect.PinConfigured -> {
-          log.i { "The pin is configured" }
+          //          log.i { "The pin is configured" }
+        }
+        SetPinContract.Effect.ConfirmPinConfigured -> {
+          //          log.i { "The confirm pin is configured" }
         }
         SetPinContract.Effect.PinMatched -> {
-          //          delay(2000) // to show the pin success animation
+          delay(400) // animate before transitioning to the homescreen
           haptics.confirm()
           onNavigateToHomeScreen()
         }
         SetPinContract.Effect.PinMismatched -> {
-          log.i { "The pins mismatched" }
+          isPinMismatch = true
+          //          log.i { "The pins mismatched" }
           haptics.reject()
           scope.launch { snackbarHostState.showSnackbar(message = "Try entering a new Pin") }
           pin = ""
           confirmPin = ""
           isConfirmPin = false
-        }
-        SetPinContract.Effect.ConfirmPinConfigured -> {
-          log.i { "The confirm pin is configured" }
         }
       }
     }
@@ -146,23 +152,33 @@ fun SetPinScreen(
           )
         }
         PinScreenTitle(isConfirmPin = isConfirmPin)
+
+        val pinMatched by derivedStateOf { pin == confirmPin && confirmPin.length == 4 }
+
         Box(
           modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
           contentAlignment = Alignment.Center,
         ) {
-          if (isConfirmPin) {
-            PinVisualization(pinInput = confirmPin, valid = pin == confirmPin)
-          } else {
-            PinVisualization(pinInput = pin)
-          }
+          PinVisualization(
+            pinInput = if (isConfirmPin) confirmPin else pin,
+            triggerSuccess = isConfirmPin && pinMatched,
+            showError = isPinMismatch,
+          )
         }
       }
       NumberPad { input ->
-        log.i { input }
-        if (input == "del") {
-          if (isConfirmPin) confirmPin = confirmPin.dropLast(1) else pin = pin.dropLast(1)
+        if (isPinMismatch) isPinMismatch = false
+        var targetInput = if (isConfirmPin) confirmPin else pin
+        val updatedPin =
+          when (input) {
+            "del" -> targetInput.dropLast(1)
+            else -> (targetInput + input).takeIf { it.length <= 4 } ?: targetInput
+          }
+
+        if (isConfirmPin) {
+          confirmPin = updatedPin
         } else {
-          if (isConfirmPin) confirmPin += input else pin += input
+          pin = updatedPin
         }
       }
     }
@@ -201,112 +217,106 @@ internal fun PinScreenTitle(isConfirmPin: Boolean = false) {
 }
 
 @Composable
-fun PinVisualization(pins: Int = 4, pinInput: String = "", valid: Boolean = false) {
-  Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)) {
+fun PinVisualization(
+  pins: Int = 4,
+  pinInput: String = "",
+  triggerSuccess: Boolean = false,
+  showError: Boolean = false,
+) {
+  val successStates = remember { List(pins) { mutableStateOf(false) } }
+
+  val shake = remember { Animatable(0f) }
+
+  LaunchedEffect(triggerSuccess) {
+    if (triggerSuccess) {
+      successStates.forEachIndexed { _, state ->
+        state.value = true
+        delay(100)
+      }
+    }
+  }
+
+  LaunchedEffect(showError) {
+    if (showError) {
+      shake.snapTo(0f)
+      shake.animateTo(
+        targetValue = 0f,
+        animationSpec =
+          keyframes {
+            durationMillis = 500
+            val intensity = 16f
+            0f at 0
+            -intensity at 50
+            intensity at 100
+            -intensity at 150
+            intensity at 200
+            -intensity / 2 at 250
+            intensity / 2 at 300
+            -intensity / 4 at 350
+            intensity / 4 at 400
+            0f at 500
+          },
+      )
+    }
+  }
+
+  Row(
+    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+    modifier = Modifier.graphicsLayer { translationX = shake.value },
+  ) {
     for (index in 0 until pins) {
-      val state =
-        when {
-          index < pinInput.length -> Input
-          valid -> Success
-          else -> Indeterminate
-        }
-      Pin(
-        event =
-          when (state) {
-            Input -> PinEvent.ProvideInput
-            Indeterminate -> PinEvent.ClearInput
-            Success -> PinEvent.ValidInput
-          }
+      val filled = index < pinInput.length
+      PinBubble(
+        filled = filled,
+        success = successStates[index].value,
+        failure = showError,
+        animate = triggerSuccess,
       )
     }
   }
 }
 
-/**
- * States: Indeterminate, Input, Success
- *
- * Events: provideInput, clearInput, validInput
- *
- * Transitions:
- *
- * Indeterminate + provideInput -> Input
- *
- * Input + clearInput -> Indeterminate
- *
- * Input + validInput -> Success
- *
- * Current PinState: Next PinState:
- */
 @Composable
-fun Pin(event: PinEvent) {
-  var currentState by remember { mutableStateOf(Indeterminate) }
-  val iconSize = 20.dp
-  LaunchedEffect(event) {
-    val nextState = pinFSM(currentState, event)
-    if (currentState != nextState) {
-      currentState = nextState
+fun PinBubble(filled: Boolean, success: Boolean, failure: Boolean, animate: Boolean) {
+  val scale = remember { Animatable(1f) }
+  LaunchedEffect(success) {
+    if (success && animate) {
+      scale.snapTo(1f)
+      scale.animateTo(
+        targetValue = 1.2f,
+        animationSpec = tween(durationMillis = 200, easing = FastOutSlowInEasing),
+      )
+      scale.animateTo(1f, animationSpec = tween(150))
     }
   }
 
-  Box(
-    modifier = Modifier.size(height = 40.dp, width = 24.dp),
+  val targetIcon =
+    when {
+      success -> WalenjeIcons.Circle // ✅ Green filled circle
+      filled -> WalenjeIcons.Star // ✅ Input progress
+      else -> WalenjeIcons.CircleOutline // Default state
+    }
+
+  val tintColor =
+    when {
+      success -> MaterialTheme.colorScheme.secondaryContainer
+      filled -> MaterialTheme.colorScheme.onSurface
+      failure -> MaterialTheme.colorScheme.error
+      else -> MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+    }
+
+  AnimatedContent(
+    targetState = targetIcon,
+    transitionSpec = {
+      slideInVertically { it } + fadeIn() togetherWith slideOutVertically { -it } + fadeOut()
+    },
     contentAlignment = Alignment.Center,
-  ) {
-    AnimatedContent(
-      targetState = currentState,
-      transitionSpec = {
-        when (initialState to targetState) {
-          Indeterminate to Input ->
-            slideInVertically { it } + fadeIn() togetherWith slideOutVertically { -it } + fadeOut()
-          Input to Success -> fadeIn() + scaleIn(initialScale = 1.2f) togetherWith fadeOut()
-          Input to Indeterminate ->
-            slideInVertically { -it } + fadeIn() togetherWith slideOutVertically { it } + fadeOut()
-          else -> fadeIn() togetherWith fadeOut()
-        }
-      },
-    ) { state ->
-      val icon =
-        when (state) {
-          Indeterminate -> {
-            WalenjeIcons.CircleOutline
-          }
-          Input -> {
-            WalenjeIcons.Star
-          }
-          Success -> {
-            WalenjeIcons.Circle
-          }
-        }
-      Icon(imageVector = icon, contentDescription = null, modifier = Modifier.size(iconSize))
-    }
+  ) { icon ->
+    Icon(
+      imageVector = icon,
+      contentDescription = null,
+      modifier = Modifier.size(24.dp).scale(scale.value),
+      tint = tintColor,
+    )
   }
-}
-
-fun pinFSM(state: PinState, event: PinEvent): PinState =
-  when (state) {
-    Indeterminate ->
-      when (event) {
-        PinEvent.ProvideInput -> Input
-        PinEvent.ClearInput -> Indeterminate
-        PinEvent.ValidInput -> Indeterminate
-      }
-    Input ->
-      when (event) {
-        PinEvent.ProvideInput -> Input
-        PinEvent.ClearInput -> Indeterminate
-        PinEvent.ValidInput -> Success
-      }
-    Success -> Indeterminate
-  }
-
-enum class PinState {
-  Indeterminate,
-  Input,
-  Success,
-}
-
-enum class PinEvent {
-  ProvideInput,
-  ClearInput,
-  ValidInput,
 }

@@ -1,5 +1,5 @@
 package kambi.victor.walenje.feature.welcome
 
-import org.lighthousegames.logging.logging
+import com.diamondedge.logging.logging
 
-internal val log by lazy { logging() }
+internal val log by lazy { logging("LOGGER") }

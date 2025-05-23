@@ -88,11 +88,8 @@ fun SetPin(
       NumberPad(
         onValueChange = { pin ->
           viewModel.onPinChange(pin)
-          logger.info { "In Set pin before success >>>>>>>>>>>>>>> $pin" }
 
           if (pin.length == 6) {
-            logger.info { "In Set pin after success >>>>>>>>>>>>>>> $pin" }
-
             onSuccess(pin)
             viewModel.onPinChange("")
           }
