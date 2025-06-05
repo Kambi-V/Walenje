@@ -1,7 +1,6 @@
 package kambi.victor.walenje.core.ui.view_models
 
 import androidx.lifecycle.ViewModel
-import kambi.victor.walenje.core.ui.logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

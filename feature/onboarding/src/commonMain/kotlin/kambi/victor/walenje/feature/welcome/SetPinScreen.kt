@@ -68,14 +68,15 @@ fun SetPinScreen(
   viewModel: SetPinScreenViewModel = koinViewModel(),
   onNavigateToHomeScreen: () -> Unit,
 ) {
+  val haptics = LocalHapticFeedback.current
+
   var pin by remember { mutableStateOf("") }
   var confirmPin by remember { mutableStateOf("") }
-
   var isConfirmPin by remember { mutableStateOf(false) }
+  var isPinMismatch by remember { mutableStateOf(false) }
+
   val snackbarHostState = remember { SnackbarHostState() }
   val scope = rememberCoroutineScope()
-  val haptics = LocalHapticFeedback.current
-  var isPinMismatch by remember { mutableStateOf(false) }
 
   LaunchedEffect(pin, confirmPin) {
     if (pin.length == 4) {
@@ -96,7 +97,7 @@ fun SetPinScreen(
           onNavigateToHomeScreen()
         }
         SetPinContract.Effect.PinConfigured -> {
-          //          log.i { "The pin is configured" }
+          logger.i { "The pin is configured" }
         }
         SetPinContract.Effect.ConfirmPinConfigured -> {
           //          log.i { "The confirm pin is configured" }

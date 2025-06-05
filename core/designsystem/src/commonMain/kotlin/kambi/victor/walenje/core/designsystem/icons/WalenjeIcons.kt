@@ -20,7 +20,7 @@ import walenje.core.designsystem.generated.resources.walenje_passcode
 
 object WalenjeIcons {
   val Analytics
-  @Composable get() = Res.drawable.hugeicons_pie_chart.vector()
+    @Composable get() = Res.drawable.hugeicons_pie_chart.vector()
 
   val ArrowChevronRight
     @Composable get() = Res.drawable.gravity_ui_arrow_chevron_right.vector()
@@ -46,7 +46,9 @@ object WalenjeIcons {
   val Del
     @Composable get() = Res.drawable.del.vector()
 
-  val Home  @Composable get() = Res.drawable.hugeicons_home_06.vector()
+  val Home
+    @Composable get() = Res.drawable.hugeicons_home_06.vector()
+
   val Lock
     @Composable get() = Res.drawable.material_symbols_lock.vector()
 
@@ -54,7 +56,8 @@ object WalenjeIcons {
     @Composable get() = Res.drawable.fluent_lock_closed_key_16_filled.vector()
 
   val Profile
-  @Composable get() = Res.drawable.hugeicons_user_circle_02.vector()
+    @Composable get() = Res.drawable.hugeicons_user_circle_02.vector()
+
   val Star
     @Composable get() = Res.drawable.walenje_passcode.vector()
 }

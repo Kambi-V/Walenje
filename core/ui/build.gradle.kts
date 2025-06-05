@@ -5,7 +5,8 @@ plugins {
 }
 
 kotlin {
-  androidLibrary { namespace = "kambi.victor.walenje.core.ui"
+  androidLibrary {
+    namespace = "kambi.victor.walenje.core.ui"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     minSdk = libs.versions.android.minSdk.get().toInt()
   }

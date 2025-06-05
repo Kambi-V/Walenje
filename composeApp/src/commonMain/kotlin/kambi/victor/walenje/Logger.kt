@@ -1,5 +1,10 @@
 package kambi.victor.walenje
 
-import com.diamondedge.logging.logging
+import co.touchlab.kermit.Logger
+import co.touchlab.kermit.NoTagFormatter
+import co.touchlab.kermit.loggerConfigInit
+import co.touchlab.kermit.platformLogWriter
 
-internal val logger by lazy { logging() }
+internal val logger by lazy {
+  Logger(loggerConfigInit(platformLogWriter(NoTagFormatter)), "LOGGER")
+}
