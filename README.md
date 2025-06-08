@@ -3,7 +3,7 @@
 Walenje is a kotlin multiplatform project, built with Compose multiplatform, Coroutines, Koin and Material 3 based on MVI presentation with clean architecture
 <br>
 <br>
-Walenje is Swahili/Sheng' for *wallet*
+Walenje is Swahili/Sheng' for *wallet* pronounced `[ wah-leh-nje ]`
 
 ![walenje](images/icon.svg)
 
