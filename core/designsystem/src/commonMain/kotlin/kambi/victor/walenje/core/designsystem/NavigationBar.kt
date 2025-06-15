@@ -1,7 +1,6 @@
 package kambi.victor.walenje.core.designsystem
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Icon
@@ -28,11 +27,6 @@ data class NavigationItem(
 )
 
 @Composable
-fun WalenjeNavigationBarUpdated(items: List<NavigationItem>, onItemSelected: () -> Unit) {
-  NavigationBar { items.forEach { item -> } }
-}
-
-@Composable
 fun WalenjeNavigationBar(items: Map<Int, NavItem>, selectedItem: Int) {
   var selectedNavItem by remember { mutableIntStateOf(selectedItem) }
   NavigationBar(containerColor = Color.Transparent) {
@@ -46,7 +40,7 @@ fun WalenjeNavigationBar(items: Map<Int, NavItem>, selectedItem: Int) {
               Icon(imageVector = item.value.icon, contentDescription = null)
             }
           },
-          label = { AnimatedVisibility(selectedNavItem == item.key) { Text(item.value.name) } },
+          label = { Text(item.value.name) },
         )
       }
     }
