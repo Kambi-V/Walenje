@@ -1,6 +1,8 @@
 package kambi.victor.walenje.core.designsystem.theme
 
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.MaterialExpressiveTheme
+import androidx.compose.material3.MotionScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -249,7 +251,13 @@ data class ColorFamily(
   val onColorContainer: Color,
 )
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun WalenjeTheme(content: @Composable () -> Unit) {
-  MaterialTheme(colorScheme = lightScheme, typography = getSceptreTypography(), content = content)
+  MaterialExpressiveTheme(
+    colorScheme = lightScheme,
+    motionScheme = MotionScheme.expressive(),
+    typography = getSceptreTypography(),
+    content = content,
+  )
 }
