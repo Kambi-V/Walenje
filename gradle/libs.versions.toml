@@ -1,28 +1,31 @@
 [versions]
-agp = "8.10.1"
-androidx-activityCompose = "1.10.1"
-android-compileSdk = "35"
-androidx-lifecycle = "2.9.0"
+agp = "8.13.0"
+androidx-activityCompose = "1.11.0"
+android-compileSdk = "36"
+androidx-lifecycle = "2.9.4"
 android-minSdk = "24"
 android-targetSdk = "35"
 biometric = "1.4.0-alpha04"
-compose-adaptive = "1.2.0-alpha02"
-compose-hot-reload = "1.0.0-alpha10"
-compose-lifecycle = "2.9.0"
-compose-multiplatform = "1.9.0-alpha02"
-compose-navigation = "2.9.0-beta02"
-graphics-shapes = "1.0.0-alpha08"
-kotlin = "2.1.21"
+compose-adaptive = "1.2.0-alpha06"
+compose-hot-reload = "1.0.0-beta08"
+compose-lifecycle = "2.9.4"
+compose-multiplatform = "1.9.0"
+compose-navigation = "2.9.0"
+graphics-shapes = "1.0.0-alpha09"
+kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.8.1"
-ktfmt = "0.22.0"
-koin = "4.1.0-Beta10"
-kotlin-logging = "2.0.4"
+kotlinx-serialization = "1.9.0"
+ktfmt = "0.24.0"
+koin = "4.1.1"
+kotlin-logging = "2.0.8"
+material3 = "1.9.0-alpha04"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+
+biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 
 compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "compose-adaptive" }
 compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
@@ -41,7 +44,7 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
 kotlin-logging = { module = "co.touchlab:kermit", version.ref = "kotlin-logging" }
 
-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
 
 [bundles]
 koin = ["koin-core", "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
