@@ -11,12 +11,10 @@ plugins {
   alias(libs.plugins.androidKmpLibrary)
 }
 
-
 kotlin {
   androidLibrary {
     namespace = "kambi.victor.walenje.common"
     compileSdk = libs.versions.compileSdk.get().toInt()
-    minSdk = libs.versions.minSdk.get().toInt()
     androidResources.enable = true
     compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }
   }
@@ -37,13 +35,12 @@ kotlin {
       implementation(projects.core.designsystem)
       implementation(projects.core.authentication)
       implementation(projects.core.ui)
-
-      implementation(libs.compose.navigation)
-
       implementation(projects.feature.onboarding)
       implementation(projects.feature.home)
       implementation(projects.feature.analytics)
       implementation(projects.feature.profile)
+
+      implementation(libs.compose.navigation)
     }
 
     jvmMain.dependencies {

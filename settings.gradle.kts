@@ -1,18 +1,18 @@
 pluginManagement {
-    includeBuild("convention-plugins")
+  includeBuild("convention-plugins")
 
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
+  repositories {
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+  }
 }
 
 dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
+  repositories {
+    google()
+    mavenCentral()
+  }
 }
 
 rootProject.name = "Walenje"
