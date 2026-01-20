@@ -1,6 +1,4 @@
-import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -13,7 +11,6 @@ plugins {
   alias(libs.plugins.androidKmpLibrary)
 }
 
-// composeCompiler { featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups) }
 
 kotlin {
   androidLibrary {
