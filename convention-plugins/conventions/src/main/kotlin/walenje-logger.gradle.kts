@@ -4,6 +4,4 @@ val libs = the<LibrariesForLibs>()
 
 plugins { id("walenje-kmp") }
 
-javaToolchains { version = JavaVersion.VERSION_21 }
-
 kotlin { sourceSets { commonMain { dependencies { api(libs.kotlin.logging) } } } }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="KtfmtSettings">
-    <option name="customContinuationIndent" value="2" />
-    <option name="customManageTrailingCommas" value="true" />
-    <option name="enableKtfmt" value="Enabled" />
-    <option name="uiFormatterStyle" value="Google (internal)" />
+    <option name="enableKtfmt" value="Disabled" />
   </component>
 </project>

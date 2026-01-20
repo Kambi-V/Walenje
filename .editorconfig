@@ -1,0 +1,13 @@
+root = true
+
+[*.{kt,kts}]
+indent_size = 2
+indent_style = space
+ij_any_align_multiline_parameters = true
+ij_kotlin_allow_trailing_comma = true
+ktlint_code_style = android_studio
+ktlint_function_naming_ignore_when_annotated_with = Composable
+max_line_length = 100
+
+[**/generated/**]
+ktlint = disabled

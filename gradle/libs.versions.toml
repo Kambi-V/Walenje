@@ -1,24 +1,27 @@
 [versions]
 agp = "8.13.0"
-androidx-activityCompose = "1.11.0"
-android-compileSdk = "36"
-androidx-lifecycle = "2.9.4"
-android-minSdk = "24"
-android-targetSdk = "35"
-biometric = "1.4.0-alpha04"
-compose-adaptive = "1.2.0-alpha06"
-compose-hot-reload = "1.0.0-beta08"
-compose-lifecycle = "2.9.4"
-compose-multiplatform = "1.9.0"
-compose-navigation = "2.9.0"
+androidx-activityCompose = "1.12.2"
+compileSdk = "36"
+androidx-lifecycle = "2.9.6"
+minSdk = "24"
+targetSdk = "36"
+biometric = "1.4.0-alpha05"
+compose-adaptive = "1.2.0"
+compose-hot-reload = "1.0.0"
+compose-lifecycle = "2.9.6"
+compose-plugin = "1.10.0"
+compose-navigation = "2.9.1"
 graphics-shapes = "1.0.0-alpha09"
-kotlin = "2.2.20"
+kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
-ktfmt = "0.24.0"
+ktfmt = "0.25.0"
 koin = "4.1.1"
 kotlin-logging = "2.0.8"
-material3 = "1.9.0-alpha04"
+material3 = "1.9.0"
+appcompat = "1.7.1"
+ktlint = "14.0.1"
+compose-lints = "1.4.2"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -30,7 +33,9 @@ biometric = { module = "androidx.biometric:biometric", version.ref = "biometric"
 compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "compose-adaptive" }
 compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 compose-lifecycle = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime", version.ref = "compose-lifecycle" }
+compose-lints = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lints" }
 
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "compose-plugin" }
 graphics-shapes = { group = "org.jetbrains.androidx.graphics", name = "graphics-shapes", version.ref = "graphics-shapes" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
@@ -45,6 +50,11 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlin-logging = { module = "co.touchlab:kermit", version.ref = "kotlin-logging" }
 
 material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose-plugin" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "compose-plugin" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose-plugin" }
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose-plugin"}
 
 [bundles]
 koin = ["koin-core", "koin-compose", "koin-compose-viewmodel", "koin-compose-viewmodel-navigation"]
@@ -54,8 +64,9 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "compose-hot-reload" }
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

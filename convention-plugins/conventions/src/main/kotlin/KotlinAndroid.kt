@@ -7,23 +7,29 @@ import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.the
 
 internal fun Project.configureAndroidLibrary() {
-  val libs = the<LibrariesForLibs>()
+    val libs = the<LibrariesForLibs>()
 
-  extensions.configure<LibraryExtension> {
-    val moduleName = path.split(":").drop(2).joinToString(".")
-    namespace =
-      if (moduleName.isNotEmpty()) "kambi.victor.walenje.$moduleName" else "kambi.victor.walenje"
+    extensions.configure<LibraryExtension> {
+        val moduleName = path.split(":").drop(2).joinToString(".")
+        namespace =
+            if (moduleName.isNotEmpty()) "kambi.victor.walenje.$moduleName" else "kambi.victor.walenje"
 
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-      minSdk = libs.versions.android.minSdk.get().toInt()
-      consumerProguardFiles("consumer-proguard-rules.pro")
+        compileSdk =
+            libs.versions.compileSdk
+                .get()
+                .toInt()
+        defaultConfig {
+            minSdk =
+                libs.versions.minSdk
+                    .get()
+                    .toInt()
+            consumerProguardFiles("consumer-proguard-rules.pro")
+        }
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
+        }
+        packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
+        apply { sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml") }
     }
-    compileOptions {
-      sourceCompatibility = JavaVersion.VERSION_21
-      targetCompatibility = JavaVersion.VERSION_21
-    }
-    packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
-    apply { sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml") }
-  }
 }
